@@ -1,0 +1,23 @@
+# mmkb 评测集示例（5 条）
+#
+# 这里只提供**格式**与题目示例，所有 ground_truth 均为空，labeled 全部为 false。
+# 代码不会替你生成标注，也不会把未标注条目当成 0 分。请按以下步骤人工完成：
+#   1. 先建库并导入你自己的文档（文本 + 图片）；
+#   2. 用 GET /api/kbs/{kb_id}/documents 或评测产物里的检索明细找到真实 ID；
+#   3. 把对应条目的 labeled 改为 true，填入 item_ids / doc_ids / image_ids；
+#   4. 运行 python -m app.eval.run_eval --kb <kb_id> --ablation all
+#
+# task 语义：
+#   text           文本问题，检索文本分块；可标 item_ids 或 doc_ids
+#   text_to_image  以文搜图，只认 image_ids
+#   image_to_image 以图搜图，只认 image_ids，且 query_image 必须指向真实图片
+#
+# image_to_image 的 query_image 相对数据集目录解析，找不到再相对项目根目录解析。
+# 下面这条指向仓库内的示例图；若你的环境没有该文件，请替换为自己的图片路径。
+# 找不到图片时该题会被跳过并写明原因，不会被记成 0 分。
+
+{"id": "q001", "task": "text", "query": "系统用了哪几路召回，最终如何融合？", "query_image": null, "kb_id": null, "labeled": false, "ground_truth": {"item_ids": [], "doc_ids": [], "image_ids": [], "answer": ""}, "notes": "示例：文本题。请人工填写 item_ids 或 doc_ids，并把 labeled 改为 true。"}
+{"id": "q002", "task": "text", "query": "为什么文本向量和图像向量要放在不同的 collection 里？", "query_image": null, "kb_id": null, "labeled": false, "ground_truth": {"item_ids": [], "doc_ids": [], "image_ids": [], "answer": ""}, "notes": "示例：概念解释题。doc_ids 标注文档级相关，同一文档的多个分块会被折叠成一个评测单元。"}
+{"id": "q003", "task": "text_to_image", "query": "展示三路召回与融合流程的架构图", "query_image": null, "kb_id": null, "labeled": false, "ground_truth": {"item_ids": [], "doc_ids": [], "image_ids": [], "answer": ""}, "notes": "示例：以文搜图。只填写 image_ids；命中 caption 文本块不算找到图。"}
+{"id": "q004", "task": "text_to_image", "query": "文档中关于系统分层的示意图", "query_image": null, "kb_id": null, "labeled": false, "ground_truth": {"item_ids": [], "doc_ids": [], "image_ids": [], "answer": ""}, "notes": "示例：以文搜图。请换成你知识库里真实存在的图片 ID，避免与 q003 重复。"}
+{"id": "q005", "task": "image_to_image", "query": "找出与这张图内容相似的图片", "query_image": "data/sample_assets/architecture.png", "kb_id": null, "labeled": false, "ground_truth": {"item_ids": [], "doc_ids": [], "image_ids": [], "answer": ""}, "notes": "示例：以图搜图。query 仅用于报告展示，真正检索用 query_image；请人工填写 image_ids。"}

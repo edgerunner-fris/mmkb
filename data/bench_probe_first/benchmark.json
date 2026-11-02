@@ -1,0 +1,282 @@
+{
+  "metadata": {
+    "generated_at": "2026-10-20T15:22:27+00:00",
+    "kb_id": "kb_5ab3c27f63b5",
+    "kb_name": "demo",
+    "routes": "bm25",
+    "rerank": false,
+    "top_k": null,
+    "repeat": 1,
+    "warmup": 0,
+    "cold": false,
+    "providers": {
+      "llm": "deepseek/deepseek-flash",
+      "text_embedding": "dashscope/text-embedding-v4",
+      "image_embedding": "dashscope/qwen3-vl-embedding",
+      "rerank": "dashscope/gte-rerank-v2"
+    },
+    "retrieval": {
+      "enable_bm25": true,
+      "enable_dense_text": true,
+      "enable_dense_image": true,
+      "enable_rerank": true,
+      "top_k_per_route": 20,
+      "rrf_k": 60,
+      "rerank_input_k": 50,
+      "final_top_k": 8
+    },
+    "ingest": {
+      "max_concurrent_docs": 1,
+      "image_inspect_concurrency": 4
+    },
+    "cache": {
+      "enabled": true,
+      "query_embedding_ttl_s": 600.0,
+      "rerank_ttl_s": 300.0,
+      "collection_meta_ttl_s": 30.0
+    },
+    "cache_stats": {
+      "dense_text": {
+        "query_embedding": {
+          "hits": 0,
+          "misses": 0,
+          "lookups": 0,
+          "hit_rate": 0.0,
+          "evictions": 0,
+          "expirations": 0,
+          "size": 0,
+          "max_entries": 512,
+          "ttl_s": 600.0
+        }
+      },
+      "dense_image": {
+        "query_embedding": {
+          "hits": 0,
+          "misses": 0,
+          "lookups": 0,
+          "hit_rate": 0.0,
+          "evictions": 0,
+          "expirations": 0,
+          "size": 0,
+          "max_entries": 512,
+          "ttl_s": 600.0
+        }
+      },
+      "rerank": {
+        "scores": {
+          "hits": 0,
+          "misses": 0,
+          "lookups": 0,
+          "hit_rate": 0.0,
+          "evictions": 0,
+          "expirations": 0,
+          "size": 0,
+          "max_entries": 256,
+          "ttl_s": 300.0
+        }
+      },
+      "vectorstore": {
+        "collection_meta": {
+          "hits": 0,
+          "misses": 0,
+          "lookups": 0,
+          "hit_rate": 0.0,
+          "evictions": 0,
+          "expirations": 0,
+          "size": 0,
+          "max_entries": 256,
+          "ttl_s": 30.0
+        },
+        "collection_handles": 0
+      }
+    }
+  },
+  "retrieval": {
+    "queries": 1,
+    "repeat": 1,
+    "warmup": 0,
+    "cold": false,
+    "total": {
+      "count": 1,
+      "mean_ms": 890.57,
+      "p50_ms": 890.57,
+      "p95_ms": 890.57,
+      "p99_ms": 890.57,
+      "min_ms": 890.57,
+      "max_ms": 890.57
+    },
+    "stages": {
+      "plan": {
+        "count": 1,
+        "mean_ms": 3.0,
+        "p50_ms": 3.0,
+        "p95_ms": 3.0,
+        "p99_ms": 3.0,
+        "min_ms": 3.0,
+        "max_ms": 3.0
+      },
+      "retrieve": {
+        "count": 1,
+        "mean_ms": 869.0,
+        "p50_ms": 869.0,
+        "p95_ms": 869.0,
+        "p99_ms": 869.0,
+        "min_ms": 869.0,
+        "max_ms": 869.0
+      },
+      "fuse": {
+        "count": 1,
+        "mean_ms": 0.0,
+        "p50_ms": 0.0,
+        "p95_ms": 0.0,
+        "p99_ms": 0.0,
+        "min_ms": 0.0,
+        "max_ms": 0.0
+      },
+      "rerank": {
+        "count": 1,
+        "mean_ms": 0.0,
+        "p50_ms": 0.0,
+        "p95_ms": 0.0,
+        "p99_ms": 0.0,
+        "min_ms": 0.0,
+        "max_ms": 0.0
+      },
+      "expand": {
+        "count": 1,
+        "mean_ms": 0.0,
+        "p50_ms": 0.0,
+        "p95_ms": 0.0,
+        "p99_ms": 0.0,
+        "min_ms": 0.0,
+        "max_ms": 0.0
+      },
+      "hydrate": {
+        "count": 1,
+        "mean_ms": 16.0,
+        "p50_ms": 16.0,
+        "p95_ms": 16.0,
+        "p99_ms": 16.0,
+        "min_ms": 16.0,
+        "max_ms": 16.0
+      },
+      "total": {
+        "count": 1,
+        "mean_ms": 890.0,
+        "p50_ms": 890.0,
+        "p95_ms": 890.0,
+        "p99_ms": 890.0,
+        "min_ms": 890.0,
+        "max_ms": 890.0
+      }
+    },
+    "routes": {
+      "bm25": {
+        "count": 1,
+        "mean_ms": 869.0,
+        "p50_ms": 869.0,
+        "p95_ms": 869.0,
+        "p99_ms": 869.0,
+        "min_ms": 869.0,
+        "max_ms": 869.0
+      }
+    },
+    "per_query": [
+      {
+        "query": "三路召回为什么用 RRF",
+        "runs": 1,
+        "latency": {
+          "count": 1,
+          "mean_ms": 890.57,
+          "p50_ms": 890.57,
+          "p95_ms": 890.57,
+          "p99_ms": 890.57,
+          "min_ms": 890.57,
+          "max_ms": 890.57
+        },
+        "items": [
+          7
+        ],
+        "degraded": []
+      }
+    ],
+    "degraded_runs": 0,
+    "cache_stats": {
+      "dense_text": {
+        "query_embedding": {
+          "hits": 0,
+          "misses": 0,
+          "lookups": 0,
+          "hit_rate": 0.0,
+          "evictions": 0,
+          "expirations": 0,
+          "size": 0,
+          "max_entries": 512,
+          "ttl_s": 600.0
+        }
+      },
+      "dense_image": {
+        "query_embedding": {
+          "hits": 0,
+          "misses": 0,
+          "lookups": 0,
+          "hit_rate": 0.0,
+          "evictions": 0,
+          "expirations": 0,
+          "size": 0,
+          "max_entries": 512,
+          "ttl_s": 600.0
+        }
+      },
+      "rerank": {
+        "scores": {
+          "hits": 0,
+          "misses": 0,
+          "lookups": 0,
+          "hit_rate": 0.0,
+          "evictions": 0,
+          "expirations": 0,
+          "size": 0,
+          "max_entries": 256,
+          "ttl_s": 300.0
+        }
+      },
+      "vectorstore": {
+        "collection_meta": {
+          "hits": 0,
+          "misses": 0,
+          "lookups": 0,
+          "hit_rate": 0.0,
+          "evictions": 0,
+          "expirations": 0,
+          "size": 0,
+          "max_entries": 256,
+          "ttl_s": 30.0
+        },
+        "collection_handles": 0
+      }
+    },
+    "samples": [
+      {
+        "query": "三路召回为什么用 RRF",
+        "total_ms": 890.57,
+        "stages": {
+          "plan": 3,
+          "retrieve": 869,
+          "fuse": 0,
+          "rerank": 0,
+          "expand": 0,
+          "hydrate": 16,
+          "total": 890
+        },
+        "routes": {
+          "bm25": 869
+        },
+        "items": 7,
+        "fused_count": 7,
+        "degraded": []
+      }
+    ]
+  },
+  "ingest": null
+}

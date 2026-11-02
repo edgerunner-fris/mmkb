@@ -1,0 +1,48 @@
+# 版本控制 / IDE
+.git
+.gitignore
+.idea
+.vscode
+.DS_Store
+
+# Python 缓存与虚拟环境
+__pycache__
+**/__pycache__
+*.py[cod]
+.venv
+venv
+build
+dist
+*.egg-info
+.pytest_cache
+.pytest_tmp
+.pytest_work
+.pytest_run
+.ruff_cache
+.mypy_cache
+.coverage
+htmlcov
+
+# 密钥：绝不进镜像
+.env
+.env.local
+.env.*.local
+
+# 运行时数据：镜像里只保留目录结构，真实数据由 compose 挂载
+data/raw
+data/processed
+data/images
+data/chroma
+data/logs
+data/*.db
+data/*.db-wal
+data/*.db-shm
+data/eval/report.md
+data/eval/*.png
+
+# 文档与测试产物（README 需要保留，见 Dockerfile COPY）
+DESIGN.md
+tests/
+
+# 前端无关文件
+.streamlit/secrets.toml

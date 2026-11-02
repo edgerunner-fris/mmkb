@@ -1,0 +1,598 @@
+{
+  "metadata": {
+    "generated_at": "2026-10-20T15:22:16+00:00",
+    "kb_id": "kb_5ab3c27f63b5",
+    "kb_name": "demo",
+    "routes": "bm25",
+    "rerank": false,
+    "top_k": null,
+    "repeat": 8,
+    "warmup": 2,
+    "cold": true,
+    "providers": {
+      "llm": "deepseek/deepseek-flash",
+      "text_embedding": "dashscope/text-embedding-v4",
+      "image_embedding": "dashscope/qwen3-vl-embedding",
+      "rerank": "dashscope/gte-rerank-v2"
+    },
+    "retrieval": {
+      "enable_bm25": true,
+      "enable_dense_text": true,
+      "enable_dense_image": true,
+      "enable_rerank": true,
+      "top_k_per_route": 20,
+      "rrf_k": 60,
+      "rerank_input_k": 50,
+      "final_top_k": 8
+    },
+    "ingest": {
+      "max_concurrent_docs": 1,
+      "image_inspect_concurrency": 4
+    },
+    "cache": {
+      "enabled": true,
+      "query_embedding_ttl_s": 600.0,
+      "rerank_ttl_s": 300.0,
+      "collection_meta_ttl_s": 30.0
+    },
+    "cache_stats": {
+      "dense_text": {
+        "query_embedding": {
+          "hits": 0,
+          "misses": 0,
+          "lookups": 0,
+          "hit_rate": 0.0,
+          "evictions": 0,
+          "expirations": 0,
+          "size": 0,
+          "max_entries": 512,
+          "ttl_s": 600.0
+        }
+      },
+      "dense_image": {
+        "query_embedding": {
+          "hits": 0,
+          "misses": 0,
+          "lookups": 0,
+          "hit_rate": 0.0,
+          "evictions": 0,
+          "expirations": 0,
+          "size": 0,
+          "max_entries": 512,
+          "ttl_s": 600.0
+        }
+      },
+      "rerank": {
+        "scores": {
+          "hits": 0,
+          "misses": 0,
+          "lookups": 0,
+          "hit_rate": 0.0,
+          "evictions": 0,
+          "expirations": 0,
+          "size": 0,
+          "max_entries": 256,
+          "ttl_s": 300.0
+        }
+      },
+      "vectorstore": {
+        "collection_meta": {
+          "hits": 0,
+          "misses": 0,
+          "lookups": 0,
+          "hit_rate": 0.0,
+          "evictions": 0,
+          "expirations": 0,
+          "size": 0,
+          "max_entries": 256,
+          "ttl_s": 30.0
+        },
+        "collection_handles": 0
+      }
+    }
+  },
+  "retrieval": {
+    "queries": 2,
+    "repeat": 8,
+    "warmup": 2,
+    "cold": true,
+    "total": {
+      "count": 16,
+      "mean_ms": 19.25,
+      "p50_ms": 10.33,
+      "p95_ms": 46.34,
+      "p99_ms": 46.34,
+      "min_ms": 8.29,
+      "max_ms": 46.34
+    },
+    "stages": {
+      "plan": {
+        "count": 16,
+        "mean_ms": 0.0,
+        "p50_ms": 0.0,
+        "p95_ms": 0.0,
+        "p99_ms": 0.0,
+        "min_ms": 0.0,
+        "max_ms": 0.0
+      },
+      "retrieve": {
+        "count": 16,
+        "mean_ms": 0.19,
+        "p50_ms": 0.0,
+        "p95_ms": 1.0,
+        "p99_ms": 1.0,
+        "min_ms": 0.0,
+        "max_ms": 1.0
+      },
+      "fuse": {
+        "count": 16,
+        "mean_ms": 0.0,
+        "p50_ms": 0.0,
+        "p95_ms": 0.0,
+        "p99_ms": 0.0,
+        "min_ms": 0.0,
+        "max_ms": 0.0
+      },
+      "rerank": {
+        "count": 16,
+        "mean_ms": 0.0,
+        "p50_ms": 0.0,
+        "p95_ms": 0.0,
+        "p99_ms": 0.0,
+        "min_ms": 0.0,
+        "max_ms": 0.0
+      },
+      "expand": {
+        "count": 16,
+        "mean_ms": 0.0,
+        "p50_ms": 0.0,
+        "p95_ms": 0.0,
+        "p99_ms": 0.0,
+        "min_ms": 0.0,
+        "max_ms": 0.0
+      },
+      "hydrate": {
+        "count": 16,
+        "mean_ms": 17.44,
+        "p50_ms": 8.0,
+        "p95_ms": 45.0,
+        "p99_ms": 45.0,
+        "min_ms": 6.0,
+        "max_ms": 45.0
+      },
+      "total": {
+        "count": 16,
+        "mean_ms": 18.69,
+        "p50_ms": 10.0,
+        "p95_ms": 46.0,
+        "p99_ms": 46.0,
+        "min_ms": 8.0,
+        "max_ms": 46.0
+      }
+    },
+    "routes": {
+      "bm25": {
+        "count": 16,
+        "mean_ms": 0.19,
+        "p50_ms": 0.0,
+        "p95_ms": 1.0,
+        "p99_ms": 1.0,
+        "min_ms": 0.0,
+        "max_ms": 1.0
+      }
+    },
+    "per_query": [
+      {
+        "query": "三路召回为什么用 RRF",
+        "runs": 8,
+        "latency": {
+          "count": 8,
+          "mean_ms": 21.23,
+          "p50_ms": 10.88,
+          "p95_ms": 46.34,
+          "p99_ms": 46.34,
+          "min_ms": 9.02,
+          "max_ms": 46.34
+        },
+        "items": [
+          7,
+          7,
+          7,
+          7,
+          7,
+          7,
+          7,
+          7
+        ],
+        "degraded": []
+      },
+      {
+        "query": "qwen3-vl-embedding 的融合向量",
+        "runs": 8,
+        "latency": {
+          "count": 8,
+          "mean_ms": 17.27,
+          "p50_ms": 9.6,
+          "p95_ms": 39.5,
+          "p99_ms": 39.5,
+          "min_ms": 8.29,
+          "max_ms": 39.5
+        },
+        "items": [
+          8,
+          8,
+          8,
+          8,
+          8,
+          8,
+          8,
+          8
+        ],
+        "degraded": []
+      }
+    ],
+    "degraded_runs": 0,
+    "cache_stats": {
+      "dense_text": {
+        "query_embedding": {
+          "hits": 0,
+          "misses": 0,
+          "lookups": 0,
+          "hit_rate": 0.0,
+          "evictions": 0,
+          "expirations": 0,
+          "size": 0,
+          "max_entries": 512,
+          "ttl_s": 600.0
+        }
+      },
+      "dense_image": {
+        "query_embedding": {
+          "hits": 0,
+          "misses": 0,
+          "lookups": 0,
+          "hit_rate": 0.0,
+          "evictions": 0,
+          "expirations": 0,
+          "size": 0,
+          "max_entries": 512,
+          "ttl_s": 600.0
+        }
+      },
+      "rerank": {
+        "scores": {
+          "hits": 0,
+          "misses": 0,
+          "lookups": 0,
+          "hit_rate": 0.0,
+          "evictions": 0,
+          "expirations": 0,
+          "size": 0,
+          "max_entries": 256,
+          "ttl_s": 300.0
+        }
+      },
+      "vectorstore": {
+        "collection_meta": {
+          "hits": 0,
+          "misses": 0,
+          "lookups": 0,
+          "hit_rate": 0.0,
+          "evictions": 0,
+          "expirations": 0,
+          "size": 0,
+          "max_entries": 256,
+          "ttl_s": 30.0
+        },
+        "collection_handles": 0
+      }
+    },
+    "samples": [
+      {
+        "query": "三路召回为什么用 RRF",
+        "total_ms": 14.94,
+        "stages": {
+          "plan": 0,
+          "retrieve": 0,
+          "fuse": 0,
+          "rerank": 0,
+          "expand": 0,
+          "hydrate": 13,
+          "total": 14
+        },
+        "routes": {
+          "bm25": 0
+        },
+        "items": 7,
+        "fused_count": 7,
+        "degraded": []
+      },
+      {
+        "query": "三路召回为什么用 RRF",
+        "total_ms": 10.22,
+        "stages": {
+          "plan": 0,
+          "retrieve": 1,
+          "fuse": 0,
+          "rerank": 0,
+          "expand": 0,
+          "hydrate": 8,
+          "total": 10
+        },
+        "routes": {
+          "bm25": 1
+        },
+        "items": 7,
+        "fused_count": 7,
+        "degraded": []
+      },
+      {
+        "query": "三路召回为什么用 RRF",
+        "total_ms": 9.02,
+        "stages": {
+          "plan": 0,
+          "retrieve": 0,
+          "fuse": 0,
+          "rerank": 0,
+          "expand": 0,
+          "hydrate": 7,
+          "total": 8
+        },
+        "routes": {
+          "bm25": 0
+        },
+        "items": 7,
+        "fused_count": 7,
+        "degraded": []
+      },
+      {
+        "query": "三路召回为什么用 RRF",
+        "total_ms": 42.97,
+        "stages": {
+          "plan": 0,
+          "retrieve": 0,
+          "fuse": 0,
+          "rerank": 0,
+          "expand": 0,
+          "hydrate": 41,
+          "total": 42
+        },
+        "routes": {
+          "bm25": 0
+        },
+        "items": 7,
+        "fused_count": 7,
+        "degraded": []
+      },
+      {
+        "query": "三路召回为什么用 RRF",
+        "total_ms": 46.34,
+        "stages": {
+          "plan": 0,
+          "retrieve": 0,
+          "fuse": 0,
+          "rerank": 0,
+          "expand": 0,
+          "hydrate": 45,
+          "total": 46
+        },
+        "routes": {
+          "bm25": 0
+        },
+        "items": 7,
+        "fused_count": 7,
+        "degraded": []
+      },
+      {
+        "query": "三路召回为什么用 RRF",
+        "total_ms": 10.88,
+        "stages": {
+          "plan": 0,
+          "retrieve": 0,
+          "fuse": 0,
+          "rerank": 0,
+          "expand": 0,
+          "hydrate": 9,
+          "total": 10
+        },
+        "routes": {
+          "bm25": 0
+        },
+        "items": 7,
+        "fused_count": 7,
+        "degraded": []
+      },
+      {
+        "query": "三路召回为什么用 RRF",
+        "total_ms": 9.58,
+        "stages": {
+          "plan": 0,
+          "retrieve": 0,
+          "fuse": 0,
+          "rerank": 0,
+          "expand": 0,
+          "hydrate": 8,
+          "total": 9
+        },
+        "routes": {
+          "bm25": 0
+        },
+        "items": 7,
+        "fused_count": 7,
+        "degraded": []
+      },
+      {
+        "query": "三路召回为什么用 RRF",
+        "total_ms": 25.9,
+        "stages": {
+          "plan": 0,
+          "retrieve": 1,
+          "fuse": 0,
+          "rerank": 0,
+          "expand": 0,
+          "hydrate": 24,
+          "total": 25
+        },
+        "routes": {
+          "bm25": 1
+        },
+        "items": 7,
+        "fused_count": 7,
+        "degraded": []
+      },
+      {
+        "query": "qwen3-vl-embedding 的融合向量",
+        "total_ms": 9.6,
+        "stages": {
+          "plan": 0,
+          "retrieve": 0,
+          "fuse": 0,
+          "rerank": 0,
+          "expand": 0,
+          "hydrate": 8,
+          "total": 9
+        },
+        "routes": {
+          "bm25": 0
+        },
+        "items": 8,
+        "fused_count": 9,
+        "degraded": []
+      },
+      {
+        "query": "qwen3-vl-embedding 的融合向量",
+        "total_ms": 8.29,
+        "stages": {
+          "plan": 0,
+          "retrieve": 1,
+          "fuse": 0,
+          "rerank": 0,
+          "expand": 0,
+          "hydrate": 6,
+          "total": 8
+        },
+        "routes": {
+          "bm25": 1
+        },
+        "items": 8,
+        "fused_count": 9,
+        "degraded": []
+      },
+      {
+        "query": "qwen3-vl-embedding 的融合向量",
+        "total_ms": 9.31,
+        "stages": {
+          "plan": 0,
+          "retrieve": 0,
+          "fuse": 0,
+          "rerank": 0,
+          "expand": 0,
+          "hydrate": 8,
+          "total": 9
+        },
+        "routes": {
+          "bm25": 0
+        },
+        "items": 8,
+        "fused_count": 9,
+        "degraded": []
+      },
+      {
+        "query": "qwen3-vl-embedding 的融合向量",
+        "total_ms": 8.75,
+        "stages": {
+          "plan": 0,
+          "retrieve": 0,
+          "fuse": 0,
+          "rerank": 0,
+          "expand": 0,
+          "hydrate": 7,
+          "total": 8
+        },
+        "routes": {
+          "bm25": 0
+        },
+        "items": 8,
+        "fused_count": 9,
+        "degraded": []
+      },
+      {
+        "query": "qwen3-vl-embedding 的融合向量",
+        "total_ms": 39.5,
+        "stages": {
+          "plan": 0,
+          "retrieve": 0,
+          "fuse": 0,
+          "rerank": 0,
+          "expand": 0,
+          "hydrate": 38,
+          "total": 39
+        },
+        "routes": {
+          "bm25": 0
+        },
+        "items": 8,
+        "fused_count": 9,
+        "degraded": []
+      },
+      {
+        "query": "qwen3-vl-embedding 的融合向量",
+        "total_ms": 10.33,
+        "stages": {
+          "plan": 0,
+          "retrieve": 0,
+          "fuse": 0,
+          "rerank": 0,
+          "expand": 0,
+          "hydrate": 8,
+          "total": 10
+        },
+        "routes": {
+          "bm25": 0
+        },
+        "items": 8,
+        "fused_count": 9,
+        "degraded": []
+      },
+      {
+        "query": "qwen3-vl-embedding 的融合向量",
+        "total_ms": 20.16,
+        "stages": {
+          "plan": 0,
+          "retrieve": 0,
+          "fuse": 0,
+          "rerank": 0,
+          "expand": 0,
+          "hydrate": 19,
+          "total": 20
+        },
+        "routes": {
+          "bm25": 0
+        },
+        "items": 8,
+        "fused_count": 9,
+        "degraded": []
+      },
+      {
+        "query": "qwen3-vl-embedding 的融合向量",
+        "total_ms": 32.22,
+        "stages": {
+          "plan": 0,
+          "retrieve": 0,
+          "fuse": 0,
+          "rerank": 0,
+          "expand": 0,
+          "hydrate": 30,
+          "total": 32
+        },
+        "routes": {
+          "bm25": 0
+        },
+        "items": 8,
+        "fused_count": 9,
+        "degraded": []
+      }
+    ]
+  },
+  "ingest": null
+}

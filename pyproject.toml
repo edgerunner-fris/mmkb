@@ -1,0 +1,136 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mmkb"
+version = "0.1.0"
+description = "通用多模态知识库问答系统：文档+图片双模态摄入、三路混合检索、带引用生成、可量化消融评估"
+readme = "README.md"
+requires-python = ">=3.12,<3.13"
+license = { text = "MIT" }
+keywords = ["rag", "multimodal", "retrieval", "hybrid-search", "knowledge-base"]
+classifiers = [
+    "Programming Language :: Python :: 3.12",
+    "Private :: Do Not Upload",
+]
+
+dependencies = [
+    # ---------- Web / API ----------
+    "fastapi>=0.115.0",
+    "uvicorn[standard]>=0.30.6",
+    "pydantic>=2.9.2",
+    "pydantic-settings>=2.5.2",
+    "python-multipart>=0.0.12",
+
+    # ---------- LLM / 外部 HTTP ----------
+    "openai>=1.45.0",
+    "httpx>=0.27.2",
+    "tenacity>=9.0.0",
+
+    # ---------- 向量库 / 稀疏检索 ----------
+    "chromadb>=0.5.5",
+    "rank-bm25>=0.2.2",
+    "jieba>=0.42.1",
+
+    # ---------- 元数据存储 ----------
+    "SQLAlchemy>=2.0.35",
+    "aiosqlite>=0.20.0",
+    "greenlet>=3.1.1",
+
+    # ---------- 文档解析 ----------
+    "PyMuPDF>=1.24.10",
+    "python-docx>=1.1.2",
+    "python-pptx>=1.0.2",
+    "openpyxl>=3.1.5",
+    "markdown-it-py>=3.0.0",
+    "beautifulsoup4>=4.12.3",
+    "lxml>=5.3.0",
+
+    # ---------- 图像 / 数值 ----------
+    "Pillow>=10.4.0",
+    "numpy>=1.26.4",
+
+    # ---------- token 计数 ----------
+    "tiktoken>=0.7.0",
+
+    # ---------- 前端 / 可视化 ----------
+    "streamlit>=1.38.1",
+    "matplotlib>=3.9.2",
+]
+
+[project.optional-dependencies]
+# PostgreSQL + pgvector 向量库后端（默认使用 Chroma，不装这个）
+pg = [
+    # pool extra 是必须的：vectorstore_pg 用的是 psycopg_pool.AsyncConnectionPool，
+    # 只装 psycopg[binary] 的话 import psycopg_pool 会直接 ModuleNotFoundError
+    "psycopg[binary,pool]>=3.2.3",
+    "pgvector>=0.3.6",
+]
+# RAGAS 生成质量指标（不装则自动降级为 eval/metrics.py 中的自实现版本）
+eval = [
+    "ragas>=0.2.6",
+    "datasets>=3.0.0",
+    "langchain-core>=0.3.15",
+    "langchain-openai>=0.2.8",
+]
+dev = [
+    "pytest>=8.3.3",
+    "pytest-asyncio>=0.24.0",
+    "pytest-cov>=5.0.0",
+    "ruff>=0.6.9",
+    "mypy>=1.11.2",
+]
+
+[tool.setuptools.packages.find]
+include = ["app*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+# --basetemp 是**必须**的，不是洁癖：
+# pytest 默认把 tmp_path 放在 %TEMP%\pytest-of-<user>\ 下，并在会话结束时
+# 通过 `pytest-current` 这个**符号链接**做清理。Windows 上创建符号链接需要
+# 开发者模式或管理员权限，于是清理阶段会抛 WinError 5，
+# 把整份测试报告吞掉 —— 测试其实跑完了，只是你看不到结果。
+# 指到项目内的固定目录后走的是另一条清理路径，不碰符号链接。
+#
+# `-q` 已经在这里了，命令行**不要再加** `-q`：pytest 的 -q 是可叠加的，
+# 两个 `-q` 等于 `-qq`，它会连最后那行 `N passed, M skipped in Xs` 一起吞掉，
+# 于是「跑通了」和「一个测试都没跑」在终端上长得一模一样。
+# 想更安静用 `-p no:cacheprovider`，别用第二个 `-q`。
+#
+# 目录名用 `.pytest_run` 而不是更常见的 `.pytest_tmp`：后者一旦被其他
+# 用户/进程创建过（例如以管理员身份或沙箱身份跑过一次），ACL 会变成当前
+# 用户无法删除，pytest 在会话开始时清理 basetemp 就会直接 PermissionError。
+# 这个路径必须由**当前用户**可删除。若哪天它也不可删除了，直接换一个名字，
+# 不要试图在测试目录里做语义上的兼容。
+addopts = "-q --strict-markers --basetemp=.pytest_run"
+filterwarnings = [
+    "ignore::DeprecationWarning:chromadb.*",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+exclude = ["data", ".venv", "build", "dist", ".pytest_tmp", ".pytest_work", ".pytest_run*"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "UP", "B", "ASYNC", "C4", "RET"]
+ignore = [
+    "E501",   # 行长由 formatter 控制
+    "B008",   # FastAPI 的 Depends(...) 默认参数写法
+    "RET504", # 允许先赋值再 return，便于打日志
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["B011"]
+"scripts/*" = ["E402"]   # 脚本需要先 sys.path 引导再 import app
+
+[tool.mypy]
+python_version = "3.12"
+ignore_missing_imports = true
+check_untyped_defs = true
+warn_unused_ignores = true
+exclude = ["data/", "\\.venv/"]

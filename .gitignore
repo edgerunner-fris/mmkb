@@ -1,0 +1,70 @@
+# ---- Python ----
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# ---- 虚拟环境 ----
+.venv/
+venv/
+env/
+ENV/
+
+# ---- 工具缓存 ----
+.pytest_cache/
+# --basetemp 目录：旧名、历史名、当前名，以及 ACL 损坏后改名遗留的目录
+.pytest_tmp/
+.pytest_work/
+.pytest_run*/
+.ruff_cache/
+.mypy_cache/
+.coverage
+.coverage.*
+htmlcov/
+coverage.xml
+.tox/
+.nox/
+
+# ---- 密钥：绝不入库 ----
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+
+# ---- IDE / OS ----
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ---- 运行时数据（保留目录占位与评测集）----
+data/raw/*
+!data/raw/.gitkeep
+data/processed/*
+!data/processed/.gitkeep
+data/images/*
+!data/images/.gitkeep
+data/chroma/*
+!data/chroma/.gitkeep
+data/logs/
+data/*.db
+data/*.db-journal
+data/*.db-wal
+data/*.db-shm
+
+# 评测产物（report.md 由 run_eval 生成，不入库；eval_set.jsonl 是人工标注，入库）
+data/eval/report.md
+data/eval/*.png
+data/eval/*.svg
+!data/eval/.gitkeep
+!data/eval/eval_set.jsonl
+
+# ---- 前端 ----
+.streamlit/secrets.toml
